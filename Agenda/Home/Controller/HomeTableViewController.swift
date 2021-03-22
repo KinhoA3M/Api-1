@@ -140,14 +140,10 @@ class HomeTableViewController: UITableViewController, UISearchBarDelegate, NSFet
             AutenticacaoLocal().autorizaUsuario(completion: { (autenticado) in
                 if autenticado {
                     DispatchQueue.main.async {
-                        //guard let alunoSelecionado = self.gerenciadorDeResultados?.fetchedObjects![indexPath.row] else { return }
-                        //self.contexto.delete(alunoSelecionado)
-                        //
-                        //do {
-                            //try self.contexto.save()
-                        //} catch {
-                            //print(error.localizedDescription)
-                        //}
+                        let alunoSelecionado = self.alunos[indexPath.row]
+                        Repositorio().deletaAluno(aluno: alunoSelecionado)
+                        self.alunos.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: .fade)
                     }
                 }
             })
